@@ -48,7 +48,7 @@ def reverse_list(head):
 # Define a node for a singly linked list
 class node:
     #__init__ is called when an object is created, 
-    #here it initializss the value and next pointer
+    #here it initialises the value and next pointer
     def __init__(self, val, next=None):
         #self refers to the instance of the node being created
         #val is the value stored in the node, next is
@@ -120,3 +120,60 @@ def two_sum(nums, target):
 #    FROM employees
 #) t
 #WHERE rn <= 3;
+
+
+def two_sum_v2(nums, target):
+    """
+    Use a hashmap to store value -> index seen so far.
+    For each number, check if complement already seen.
+    """
+    seen = {}  # value -> index
+
+    for i, num in enumerate(nums):
+        complement = target - num
+
+        if complement in seen:
+            return [seen[complement], i]  # found pair
+
+        seen[num] = i  # store current value and index
+
+    return None  # no solution found
+
+def merge_sorted_lists(a, b):
+    """
+    Classic two-pointer traversal.
+    """
+    i = j = 0
+    result = []
+
+    while i < len(a) and j < len(b):
+        if a[i] < b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+
+    # Append remaining elements
+    result.extend(a[i:])
+    result.extend(b[j:])
+
+    return result
+
+def binary_search(nums, target):
+    """
+    Classic iterative binary search.
+    """
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1  # not found
